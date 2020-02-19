@@ -1,21 +1,20 @@
 import React, {useEffect} from 'react';
-import Index from './components'
+import Index from './components/Index'
 import {useDispatch, useSelector} from "react-redux";
 import {getBreedImages, getBreedsList} from './store/dogs/actions';
-import Loader from "./components/Loader";
 import Header from "./components/Header";
+import Showcase from './components/Showcase/Showcase';
 
 function App() {
+
+    const dispatch = useDispatch();
 
     const dogBreeds = useSelector(state => state.dogBreeds);
     const breedImages = useSelector(state => state.breedImages);
     const loading = useSelector(state => state.loading);
 
-    const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(getBreedsList())
-        dispatch(getBreedImages())
     }, []);
 
     return (
@@ -26,7 +25,9 @@ function App() {
                     <Index dogBreeds={dogBreeds}/>
                 </div>
                 <div className="index-page__content">
-                    {loading ? <Loader/> : <div><img src={breedImages[0]}></img><img src={breedImages[1]}></img><img src={breedImages[3]}></img></div>}
+                    <Showcase images={breedImages}
+                              loading={loading}
+                    />
                 </div>
             </div>
         </>

@@ -1,6 +1,7 @@
-import {SET_DOG_BREEDS, SET_BREED_IMAGES, LOADING, ERROR} from "./action-types";
+import {SET_DOG_BREEDS, SET_BREED_IMAGES, SELECT_BREED, LOADING, ERROR} from "./action-types";
 import Config from '../../config/config';
-
+import {getDogImages} from '../../api/dogApi'
+import {createLink} from "../../utils/createLink";
 
 export function setDogBreeds(payload) {
     return {type: SET_DOG_BREEDS, payload}
@@ -18,14 +19,18 @@ export function isError(payload) {
     return {type: ERROR, payload}
 };
 
-export const getBreedImages = () => {
+export function selectBreed(payload) {
+    return {type: SELECT_BREED, payload}
+}
+
+export const getBreedImages = (parameters) => {
     return dispatch => {
         dispatch(isLoading(true));
-        fetch(Config.API_URL + "/breed/hound/images")
+        fetch(createLink(getDogImages, parameters))
             .then(response => response.json())
             .then(data => {
-                console.log('data', data);
-                dispatch(setBreedImages(data.message));
+                let parsedValue = Array.isArray(data.message) ? data.message : [data.message];
+                dispatch(setBreedImages(parsedValue));
             })
             .catch(err => {
                 dispatch(isError(err))
@@ -42,6 +47,7 @@ export const getBreedsList = () => {
         fetch(Config.API_URL + "/breeds/list/all")
             .then(response => response.json())
             .then(data => {
+                console.log('data', data);
                 dispatch(setDogBreeds(data.message));
             })
             .catch(err => {

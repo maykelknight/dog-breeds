@@ -9,14 +9,15 @@ export default function Index({dogBreeds}) {
 
     useEffect(() => {
         setFilteredBreeds(Object.keys(dogBreeds));
-        setBreeds(Object.keys(dogBreeds));
+        setBreeds(dogBreeds);
     }, [dogBreeds]);
 
     const handleInputChange = (e) => {
+        console.log('breedList', breedsList);
         setBreedInput(e.target.value);
-        let filteredBreeds = breedsList.filter(breed => {
+        let filteredBreeds = Object.keys(breedsList).filter(breed => {
             if(breed.startsWith(e.target.value)) {
-                return breed
+                return breedsList[breed]
             }
         });
         setFilteredBreeds(filteredBreeds)
@@ -25,7 +26,9 @@ export default function Index({dogBreeds}) {
     return <>
         <div className="container">
             <input type="text" onChange={handleInputChange} value={breedInput} placeholder="Insert breed type"/>
-            <BreedList breeds={filteredBreeds}/>
+            <BreedList filteredBreedNames={filteredBreeds}
+                       breeds={breedsList}
+            />
         </div>
     </>
 }
