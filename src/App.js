@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import Index from './components/Index'
 import {useDispatch, useSelector} from "react-redux";
-import {getBreedImages, getBreedsList} from './store/dogs/actions';
+import {getBreedsList} from './store/dogs/actions';
 import Header from "./components/Header";
-import Showcase from './components/Showcase/Showcase';
+import Showcase from './components/Showcase';
 
 function App() {
 

@@ -1,27 +1,23 @@
 import React, {useState} from 'react';
 
-function Select({options, value, onChange}) {
+export default function CustomSelect({options, value, onChange, name, label}) {
 
-    const [selectedValue, selectValue] = useState('');
+    const [selectedValue, selectValue] = useState(value);
 
     function onValueSelected(e) {
-        console.log('e2', e.target.value);
         selectValue(e.target.value);
-
         onChange(e.target.value);
     }
 
-    console.log('options', options);
     return (
-        <div>
-            <label htmlFor="subBreed">Choose a sub breed: {selectedValue}</label>
-            <select value={selectedValue} id="subBreed" name="subBreed" onChange={(e) => onValueSelected(e)}>
-                {options.map(option => <option value={option}>{option}</option>)}
+        <div className="custom-select">
+            <label htmlFor={name}>{label} </label>
+            <select value={selectedValue}
+                    id={name} name={name}
+                    onChange={(e) => onValueSelected(e)}
+            >
+                {options.map((option, index) => <option value={option} key={index}>{option}</option>)}
             </select>
         </div>
     )
 }
-
-const CustomSelect = React.memo(Select);
-
-export default CustomSelect;

@@ -1,4 +1,13 @@
-import {SET_DOG_BREEDS, SET_BREED_IMAGES, SELECT_BREED, LOADING, ERROR} from "./action-types";
+import {
+    SET_DOG_BREEDS,
+    SET_BREED_IMAGES,
+    SELECT_BREED,
+    LOADING,
+    ERROR,
+    SELECT_SUB_BREED,
+    SELECT_PHOTOS_NUMBER
+} from "./actionTypes";
+
 import Config from '../../config/config';
 import {getDogImages} from '../../api/dogApi'
 import {createLink} from "../../utils/createLink";
@@ -13,14 +22,22 @@ export function setBreedImages(payload) {
 
 export function isLoading(payload) {
     return {type: LOADING, payload}
-};
+}
 
 export function isError(payload) {
     return {type: ERROR, payload}
-};
+}
 
 export function selectBreed(payload) {
     return {type: SELECT_BREED, payload}
+}
+
+export function selectSubBreed(payload) {
+    return {type: SELECT_SUB_BREED, payload}
+}
+
+export function selectPhotosNumber(payload) {
+    return {type: SELECT_PHOTOS_NUMBER, payload}
 }
 
 export const getBreedImages = (parameters) => {
@@ -47,7 +64,6 @@ export const getBreedsList = () => {
         fetch(Config.API_URL + "/breeds/list/all")
             .then(response => response.json())
             .then(data => {
-                console.log('data', data);
                 dispatch(setDogBreeds(data.message));
             })
             .catch(err => {

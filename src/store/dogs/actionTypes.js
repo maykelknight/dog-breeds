@@ -3,3 +3,5 @@ export const SET_BREED_IMAGES = "SET_BREED_IMAGES";
 export const LOADING = "LOADING";
 export const ERROR = "ERROR";
 export const SELECT_BREED = "SELECT_BREED";
+export const SELECT_SUB_BREED = "SELECT_SUB_BREED";
+export const SELECT_PHOTOS_NUMBER = "SELECT_PHOTOS_NUMBER";

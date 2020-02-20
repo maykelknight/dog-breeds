@@ -13,7 +13,6 @@ export default function Index({dogBreeds}) {
     }, [dogBreeds]);
 
     const handleInputChange = (e) => {
-        console.log('breedList', breedsList);
         setBreedInput(e.target.value);
         let filteredBreeds = Object.keys(breedsList).filter(breed => {
             if(breed.startsWith(e.target.value)) {
